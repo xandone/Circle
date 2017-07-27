@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="XCircleView">
+
+        <attr name="xcv_text_size" format="dimension" />
+        <attr name="xcv_color_light" format="color" />
+        <attr name="xcv_color_deep" format="color" />
+        <attr name="xcv_color_bg" format="color" />
+
+    </declare-styleable>
+
+</resources>

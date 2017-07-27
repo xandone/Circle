@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.xandone.circle.MainActivity">
+
+    <com.example.xandone.circle.XCircle
+        android:id="@+id/xcircle"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        app:xcv_color_bg="#333"
+        app:xcv_color_deep="@color/colorPrimaryDark"
+        app:xcv_color_light="#fff"
+        app:xcv_text_size="16sp" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:text="开始动画" />
+
+</RelativeLayout>
