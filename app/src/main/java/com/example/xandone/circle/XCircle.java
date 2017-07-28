@@ -32,6 +32,7 @@ public class XCircle extends View {
     private int mColorDeep;
     private int mColorBg;
     private int mTextSize;
+    private int mWidthSize;
     private int mTextHeight;
 
     private RectF mRectF;
@@ -41,7 +42,7 @@ public class XCircle extends View {
     private int mEndAngle;
     private int mCount;
 
-    private SweepGradient mSweepGradient;
+    private SweepGradient mSweepGradient;//梯度渲染
     private int[] colors = new int[2];
     private Matrix mMatrix = new Matrix();
 
@@ -67,6 +68,7 @@ public class XCircle extends View {
         super(context, attrs, defStyleAttr);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.XCircleView, defStyleAttr, 0);
         mTextSize = a.getDimensionPixelSize(R.styleable.XCircleView_xcv_text_size, DEFUALT_TEXT_SIZE);
+        mWidthSize = a.getDimensionPixelSize(R.styleable.XCircleView_xcv_width_size, CIRCLE_WIDTH);
         mColorLight = a.getColor(R.styleable.XCircleView_xcv_color_light, DEFUALT_COLOR_LIGHT);
         mColorDeep = a.getColor(R.styleable.XCircleView_xcv_color_deep, DEFUALT_COLOR_DEEP);
         mColorBg = a.getColor(R.styleable.XCircleView_xcv_color_bg, DEFUALT_COLOR_BG);
@@ -83,11 +85,11 @@ public class XCircle extends View {
         mPaintBg = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintBg.setColor(mColorBg);
         mPaintBg.setStyle(Paint.Style.STROKE);
-        mPaintBg.setStrokeWidth(CIRCLE_WIDTH);
+        mPaintBg.setStrokeWidth(mWidthSize);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(CIRCLE_WIDTH);
+        mPaint.setStrokeWidth(mWidthSize);
 //        mPaint.setStrokeCap(Paint.Cap.ROUND);
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
