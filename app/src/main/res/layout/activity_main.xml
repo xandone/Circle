@@ -15,7 +15,7 @@
         app:xcv_color_deep="@color/colorPrimaryDark"
         app:xcv_color_light="#fff"
         app:xcv_text_size="16sp"
-        app:xcv_width_size="20dp" />
+        app:xcv_width_size="14dp" />
 
     <Button
         android:id="@+id/btn"

@@ -32,7 +32,6 @@ public class XCircle extends View {
     private int mColorDeep;
     private int mColorBg;
     private int mTextSize;
-    private int mWidthSize;
     private int mTextHeight;
 
     private RectF mRectF;
@@ -42,14 +41,17 @@ public class XCircle extends View {
     private int mEndAngle;
     private int mCount;
 
-    private SweepGradient mSweepGradient;//梯度渲染
+    private SweepGradient mSweepGradient;
     private int[] colors = new int[2];
     private Matrix mMatrix = new Matrix();
 
-    public static final int CIRCLE_WIDTH = 30;
-    public static final int OFFSET_SIZE = CIRCLE_WIDTH;
+    private int mCircleWidth;
+    private int mOffsetSize;
+
+
     public static final int TEXT_OFFSET_SIZE = 20;
 
+    public static final int DEFUALT_CIRCLE_WIDTH = 40;
     public static final int DEFUALT_COLOR_LIGHT = Color.GRAY;
     public static final int DEFUALT_COLOR_DEEP = Color.GRAY;
     public static final int DEFUALT_COLOR_BG = Color.WHITE;
@@ -68,10 +70,10 @@ public class XCircle extends View {
         super(context, attrs, defStyleAttr);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.XCircleView, defStyleAttr, 0);
         mTextSize = a.getDimensionPixelSize(R.styleable.XCircleView_xcv_text_size, DEFUALT_TEXT_SIZE);
-        mWidthSize = a.getDimensionPixelSize(R.styleable.XCircleView_xcv_width_size, CIRCLE_WIDTH);
         mColorLight = a.getColor(R.styleable.XCircleView_xcv_color_light, DEFUALT_COLOR_LIGHT);
         mColorDeep = a.getColor(R.styleable.XCircleView_xcv_color_deep, DEFUALT_COLOR_DEEP);
         mColorBg = a.getColor(R.styleable.XCircleView_xcv_color_bg, DEFUALT_COLOR_BG);
+        mCircleWidth = a.getDimensionPixelSize(R.styleable.XCircleView_xcv_width_size, DEFUALT_CIRCLE_WIDTH);
         a.recycle();
         this.mContext = context;
         init();
@@ -79,21 +81,22 @@ public class XCircle extends View {
 
     public void init() {
         mDefaultSize = Utils.dp2px(mContext, 100);
+        mOffsetSize = mCircleWidth;
         colors[0] = mColorDeep;
         colors[1] = mColorLight;
 
         mPaintBg = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintBg.setColor(mColorBg);
         mPaintBg.setStyle(Paint.Style.STROKE);
-        mPaintBg.setStrokeWidth(mWidthSize);
+        mPaintBg.setStrokeWidth(mCircleWidth);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(mWidthSize);
+        mPaint.setStrokeWidth(mCircleWidth);
 //        mPaint.setStrokeCap(Paint.Cap.ROUND);
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mTextPaint.setColor(Color.BLACK);
+        mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTextSize(mTextSize);
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setStrokeWidth(4);
@@ -127,7 +130,7 @@ public class XCircle extends View {
     }
 
     public void drawBgText(Canvas canvas) {
-        mTextPaint.setTextSize(mTextSize * 3);
+        mTextPaint.setTextSize(mTextSize * 2);
         canvas.drawText("" + mCount, mX, mY, mTextPaint);
         mTextPaint.setTextSize(mTextSize);
         canvas.drawText("我的排名", mX, mY + mTextHeight + TEXT_OFFSET_SIZE, mTextPaint);
@@ -169,12 +172,12 @@ public class XCircle extends View {
 
         mX = w / 2;
         mY = h / 2;
-        mRadius = w < h ? w / 2 - OFFSET_SIZE : h / 2 - OFFSET_SIZE;
+        mRadius = w < h ? w / 2 - mOffsetSize : h / 2 - mOffsetSize;
         if (mRadius < 0) {
             mRadius = 0;
         }
 
-        mRectF = new RectF(OFFSET_SIZE, OFFSET_SIZE, w - OFFSET_SIZE, h - OFFSET_SIZE);
+        mRectF = new RectF(mOffsetSize, mOffsetSize, w - mOffsetSize, h - mOffsetSize);
 
         mSweepGradient = new SweepGradient(mX, mY, colors, null);
         mPaint.setShader(mSweepGradient);
